@@ -1,0 +1,61 @@
+*
+
+# NOTE: RUST
+!.cargo/
+!.cargo/config.toml
+
+# NOTE: config
+!.config/
+
+!.config/DankMaterialShell/
+!.config/DankMaterialShell/settings.json
+
+!.config/docker/
+!.config/docker/daemon.json
+
+!.config/fish/
+!.config/fish/auto-Hypr.fish
+!.config/fish/config.fish
+!.config/fish/fish_variables
+
+!.config/fontconfig/
+!.config/fontconfig/fonts.conf
+
+# NOTE: kitty
+!.config/kitty/
+!.config/kitty/kitty.conf
+!.config/kitty/dark-theme.auto.conf
+!.config/kitty/light-theme.auto.conf
+!.config/kitty/no-preference-theme.auto.conf
+!.config/kitty/scroll_mark.py
+!.config/kitty/search.py
+
+# NOTE: niri
+!.config/niri/
+!.config/niri/config.kdl
+!.config/niri/config-blur.kdl
+!.config/niri/dms/
+
+# NOTE: neovim
+!.config/nvim/ 
+
+!.config/pip/
+!.config/pip/pip.conf
+
+!.config/satty/
+!.config/satty/config.toml
+
+!.config/tmux/
+!.config/tmux/tmux.conf
+
+!.config/wezterm/
+!.config/wezterm/wezterm.lua
+
+!.m2/
+!.m2/settings.xml
+!.gitconfig
+!.gitignore
+!.npmrc
+!.profile 
+!.zprofile 
+!.zshrc
