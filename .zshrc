@@ -80,32 +80,38 @@ fi
 alias dbsr='sudo systemctl start mariadb'
 alias dbst='sudo systemctl stop mariadb'
 
-# 启动 Docker 服务
 dksr() {
+  if ! command -v docker >/dev/null 2>&1; then
+    echo "Docker 未安装"
+    return 1
+  fi
   if command -v systemctl >/dev/null 2>&1; then
-    sudo systemctl start docker.service docker.socket
+    sudo systemctl start containerd.service docker.service docker.socket
   else
-    echo "systemctl 不可用，尝试直接启动 dockerd（如已安装）..."
+    echo "systemctl 不可用，尝试直接启动 dockerd..."
     command -v dockerd >/dev/null 2>&1 && sudo dockerd & disown
   fi
-}
-dkst() {
-  # 停止所有容器，然后停止服务
-  if command -v docker >/dev/null 2>&1; then
-    local running
-    running="$(docker ps -q 2>/dev/null || true)"
-    if [ -n "$running" ]; then
-      docker stop $running 2>/dev/null || true
-    fi
-  fi
-  if command -v systemctl >/dev/null 2>&1; then
-    sudo systemctl stop docker.service docker.socket
-  fi
+  sleep 1
+  docker info >/dev/null 2>&1 && echo "Docker 已启动" || echo "Docker 启动失败"
 }
 
-# ---------- Paperless ----------
-alias pplsr='docker start paperless-ai paperless-webserver-1 paperless-broker-1 paperless-gotenberg-1 paperless-tika-1 paperless-db-1 2>/dev/null || true'
-alias pplst='docker stop paperless-ai paperless-webserver-1 paperless-broker-1 paperless-gotenberg-1 paperless-tika-1 paperless-db-1 2>/dev/null || true'
+dkst() {
+  if ! command -v docker >/dev/null 2>&1; then
+    echo "Docker 未安装"
+    return 1
+  fi
+  local running
+  running="$(docker ps -q 2>/dev/null || true)"
+  if [ -n "$running" ]; then
+    echo "停止运行中的容器..."
+    docker stop $running 2>/dev/null || true
+  fi
+  if command -v systemctl >/dev/null 2>&1; then
+    sudo systemctl stop docker.service docker.socket containerd.service 2>/dev/null || \
+    sudo systemctl stop docker.service docker.socket 2>/dev/null || true
+    echo "Docker 服务已停止"
+  fi
+}
 
 # ---------- Immich ----------
 alias imsr='docker start immich_server immich_machine_learning immich_postgres immich_redis 2>/dev/null || true'
@@ -162,7 +168,6 @@ mount_aliyun() {
 alias makislife='mount_aliyun "Aliyun" "makislife" "makislife"'
 alias img_makislife='mount_aliyun "Aliyun" "aly-images472" "img-makislife"'
 alias resources='mount_aliyun "Aliyun" "res-guangzhou" "resources"'
-alias blog='mount_aliyun "Aliyun" "blog-makislife" "blog"'
 
 # NOTE: 自定义命令
 alias bilidown='cd ~/.local/share/bilidown && ./bilidown'
@@ -171,6 +176,7 @@ alias nd='neovide'
 alias ipa='ip addr show | grep -E "192|172"'
 alias lh='ls -lh'
 alias t='tmux'
+alias ta='tmux a'
 alias li="gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
 alias dk="gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
 alias dolphin='export ALL_PROXY= && dolphin'
@@ -195,6 +201,12 @@ bindkey '^x^e' edit-command-line
 # 切换目录的时候自动ls
 chpwd() {
   ls
+}
+
+# VMWare
+vmnet() {
+  sudo modprobe vmnet
+  sudo vmware-networks --start
 }
 
 # 定义后缀操作

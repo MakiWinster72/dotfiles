@@ -7,8 +7,8 @@ config-notification {
 }
 // 来自现有配置的输出设置
 output "eDP-1" {
-    // mode "1920x1080@165.004"
-    mode "1920x1080@60.004"
+    mode "1920x1080@165.004"
+    // mode "1920x1080@60.004"
     scale 1
     transform "normal"
     position x=0 y=0
@@ -75,7 +75,7 @@ input {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // 设置窗口周围的间隙（逻辑像素）
-    gaps 12
+    gaps 0
     background-color "transparent"
     // 何时在改变焦点时居中列，选项有:
     // - "never"，默认行为，聚焦屏幕外的列将保持在屏幕左侧或右侧边缘
@@ -113,7 +113,7 @@ layout {
         urgent-color   "#cc4444"      // 柔和的红色
     }
     focus-ring {
-        width 2
+        width 0
         active-color "#f5bde6"
         inactive-color "#5b6078"
     }
@@ -171,7 +171,7 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 animations {
 
-    slowdown 2
+    slowdown 1
 
     workspace-switch {
         spring damping-ratio=0.80 stiffness=523 epsilon=0.0001
@@ -250,6 +250,16 @@ window-rule {
 }
 window-rule {
     match app-id="zen"
+    match app-id="firefox"
+    match app-id="google-chrome"
+    match app-id="satty"
+    match app-id="remmina"
+    match app-id="code"
+    match app-id="org.gnome.Loupe"
+    match app-id="Vncviewer" is-active=true
+    match app-id="org.telegram.desktop" is-active=true
+    match app-id="org.gnome.Papers"
+    match app-id="obsidian" is-active=true
     opacity 1.0
 }
 window-rule {
@@ -283,6 +293,7 @@ binds {
 
     // === 应用程序启动器 ===
     Mod+T hotkey-overlay-title="打开终端" { spawn "kitty"; }
+    Mod+G { spawn "ghostty"; }
     Mod+Return hotkey-overlay-title="打开终端" { spawn "wezterm"; }
     Alt+O hotkey-overlay-title="应用程序启动器" { spawn "wofi" "--show" "drun"; }
     Alt+Space hotkey-overlay-title="应用程序启动器" {
@@ -490,14 +501,11 @@ binds {
     Ctrl+XF86Launch1 { screenshot-screen; }
     Alt+XF86Launch1 { screenshot-window; }
     // Mod+Shift+S hotkey-overlay-title="截屏" { screenshot; }
-    Mod+Shift+S {
-    spawn-sh "grim -g \"$(slurp)\" -t ppm - | satty --filename - ";
-    }
 
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
-
+    Mod+Shift+S {screenshot;}
     // === 系统控制 ===
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+P { power-off-monitors; }

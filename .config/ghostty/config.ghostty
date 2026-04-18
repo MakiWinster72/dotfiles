@@ -1,0 +1,8 @@
+config-file = ?auto/theme.ghostty
+theme = Catppuccin Frappe
+
+font-size = 16
+
+font-family = Recursive Mono Casual Static
+# font_family = CaskaydiaCove Nerd Font Mono
+# font_family = Hurmit Nerd Font
