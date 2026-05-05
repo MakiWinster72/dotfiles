@@ -113,9 +113,9 @@ layout {
         urgent-color   "#cc4444"      // 柔和的红色
     }
     focus-ring {
-        width 2
-        active-color "#f5bde6"
-        inactive-color "#5b6078"
+        width 0
+        // active-color "#a1ade6"
+        // inactive-color "#5b6078"
     }
     // 窗口阴影
     shadow {
