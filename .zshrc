@@ -12,7 +12,6 @@ ZSH_THEME="juanghurtado"
     git
     zsh-autosuggestions
     zsh-syntax-highlighting
-    zsh-history-substring-search
     fzf
   )
   source "$ZSH/oh-my-zsh.sh"
@@ -184,10 +183,7 @@ alias web='browser-sync start --server --files "**/*.*"'
 alias cr='cargorun'
 :q() { exit; }
 
-# 加载密钥
-if [ -f "${HOME}/.env_keys" ]; then
-  source "${HOME}/.env_keys"
-fi
+source ~/Documents/.secrets/keys
 
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init --cmd cd zsh)"
@@ -220,7 +216,5 @@ vmnet() {
 # alias -s yaml="bat -l yaml"
 # alias -s json="jless"
 
-# OpenClaw Completion
-source "/home/maki/.openclaw/completions/openclaw.zsh"
 # opencode
 export PATH=/home/maki/.opencode/bin:$PATH
