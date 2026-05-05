@@ -1,12 +1,12 @@
 # export QT_QPA_PLATFORMTHEME="qt6ct"
 export QT_QPA_PLATFORM=wayland
-export ICON_THEME=Papirus
 # export XDG_CURRENT_DESKTOP=KDE
 export KDE_SESSION_VERSION=6
 
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
+export INPUT_METHOD=fcitx
 export SDL_IM_MODULE=fcitx
 export GLFW_IM_MODULE=ibus
 export NO_PROXY=maki,localhost,master,192.168.1.0/24,172.20.10.0/28
@@ -36,3 +36,4 @@ export BROWSER="/usr/bin/zen-browser"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export MANPAGER="sh -c 'col -bx | bat -l man'"
 export PATH="$HOME/.local/bin:$PATH"
+
