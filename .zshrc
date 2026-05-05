@@ -171,23 +171,38 @@ alias resources='mount_aliyun "Aliyun" "res-guangzhou" "resources"'
 # NOTE: 自定义命令
 alias bilidown='cd ~/.local/share/bilidown && ./bilidown'
 alias ni='niri-session'
-alias nd='neovide'
 alias ipa='ip addr show | grep -E "192|172"'
 alias lh='ls -lh'
-alias t='tmux'
-alias ta='tmux a'
 alias li="gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
 alias dk="gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
-alias dolphin='export ALL_PROXY= && dolphin'
 alias web='browser-sync start --server --files "**/*.*"'
-alias cr='cargorun'
+workMount() {
+  local mounts=(
+    "/mnt/devel-alist:cb@cb:/mnt/d/alist"
+    "/mnt/wsl:cb@cb:/home/cb"
+    "/mnt/devel:cb@cb:/mnt/c/Users/devel"
+  )
+
+  for entry in $mounts; do
+    local mount_point="${entry%%:*}"
+    local remote="${entry#*:}"
+    if mountpoint -q "$mount_point"; then
+      echo "$mount_point 已挂载"
+    else
+      echo "挂载 $remote -> $mount_point ..."
+      sshfs -p 2222 "$remote" "$mount_point"
+    fi
+  done
+}
+alias scb='ssh -p 2222 cb@cb'
+alias sa='ssh -p 64701 maki@frp.makis-life.cn'
 :q() { exit; }
 
+# WARN: 加载密钥
 source ~/Documents/.secrets/keys
 
-if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init --cmd cd zsh)"
-fi
+# NOTE: zoxide 替换 cd
+eval "$(zoxide init --cmd cd zsh)"
 
 # 在缓存行中打开输入
 autoload -Uz edit-command-line
@@ -204,17 +219,6 @@ vmnet() {
   sudo modprobe vmnet
   sudo vmware-networks --start
 }
-
-# 定义后缀操作
-# alias -s md='glow -p'
-# alias -s mov="open"
-# alias -s png="open"
-# alias -s mp4="open"
-# alias -s go="$EDITOR"
-# alias -s js="$EDITOR"
-# alias -s ts="$EDITOR"
-# alias -s yaml="bat -l yaml"
-# alias -s json="jless"
 
 # opencode
 export PATH=/home/maki/.opencode/bin:$PATH
