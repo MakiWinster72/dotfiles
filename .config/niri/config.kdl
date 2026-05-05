@@ -75,7 +75,7 @@ input {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // 设置窗口周围的间隙（逻辑像素）
-    gaps 0
+    gaps 50
     background-color "transparent"
     // 何时在改变焦点时居中列，选项有:
     // - "never"，默认行为，聚焦屏幕外的列将保持在屏幕左侧或右侧边缘
@@ -113,13 +113,13 @@ layout {
         urgent-color   "#cc4444"      // 柔和的红色
     }
     focus-ring {
-        width 0
+        width 2
         active-color "#f5bde6"
         inactive-color "#5b6078"
     }
     // 窗口阴影
     shadow {
-        off
+        on
         softness 30
         spread 5
         offset x=20 y=20
@@ -144,24 +144,22 @@ cursor {
     hide-after-inactive-ms 1000
 }
 
-// spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
 spawn-at-startup "clash-verge"
 spawn-at-startup "fcitx5"
 spawn-at-startup "dms" "run"
-spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
-// spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+// spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "XDG_MENU_PREFIX=arch- kbuildsycoca6"
 
 environment {
   _JAVA_AWT_WM_NONREPARENTING "1"
   XDG_CURRENT_DESKTOP "niri"
-  ALL_PROXY "http://127.0.0.1:7897"
-  QT_QPA_PLATFORM "wayland"
+  ALL_PROXY "http://127.0.0.1:7890"
   ELECTRON_OZONE_PLATFORM_HINT "auto"
-  QT_QPA_PLATFORMTHEME "gtk3"
-  QT_QPA_PLATFORMTHEME_QT6 "gtk3"
   TERMINAL "kitty"
   EDITOR "nvim"
+  GTK_THEME "Adwaita:dark"
+  GTK_ICON_THEME "Papirus-Dark"
 }
 hotkey-overlay {
     skip-at-startup
@@ -293,8 +291,9 @@ binds {
 
     // === 应用程序启动器 ===
     Mod+T hotkey-overlay-title="打开终端" { spawn "kitty"; }
-    Mod+G { spawn "ghostty"; }
     Mod+Return hotkey-overlay-title="打开终端" { spawn "wezterm"; }
+    Mod+Z { spawn "clash-verge"; }
+    Mod+Y { spawn "Telegram"; }
     Alt+O hotkey-overlay-title="应用程序启动器" { spawn "wofi" "--show" "drun"; }
     Alt+Space hotkey-overlay-title="应用程序启动器" {
         spawn "dms" "ipc" "call" "spotlight" "toggle";
@@ -318,7 +317,13 @@ binds {
     Alt+Shift+Equal {
     spawn-sh "brightnessctl set +5%";
     }
+    Alt+Shift+2 {
+    spawn-sh "brightnessctl set +5%";
+    }
     Alt+Shift+Minus {
+    spawn-sh "brightnessctl set 5%-";
+    }
+    Alt+Shift+1 {
     spawn-sh "brightnessctl set 5%-";
     }
     Alt+Equal {
@@ -327,13 +332,19 @@ binds {
     Alt+Minus {
     spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
     }
+    Alt+2 {
+    spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+    }
+    Alt+1 {
+    spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+    }
 
     // Mod+Comma hotkey-overlay-title="设置" {
     //     spawn "dms" "ipc" "call" "settings" "toggle";
     // }
-    Mod+Y hotkey-overlay-title="浏览壁纸" {
-        spawn "dms" "ipc" "call" "dankdash" "wallpaper";
-    }
+    // Mod+Y hotkey-overlay-title="浏览壁纸" {
+    //     spawn "dms" "ipc" "call" "dankdash" "wallpaper";
+    // }
     Mod+Shift+N hotkey-overlay-title="通知中心" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
     Mod+N hotkey-overlay-title="记事本" { spawn "dms" "ipc" "call" "notepad" "toggle"; }
 
