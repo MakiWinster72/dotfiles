@@ -13,6 +13,7 @@ ZSH_THEME="juanghurtado"
     zsh-autosuggestions
     zsh-syntax-highlighting
     fzf
+    kimi-cli
   )
   source "$ZSH/oh-my-zsh.sh"
 fi
@@ -112,14 +113,6 @@ dkst() {
   fi
 }
 
-# ---------- Immich ----------
-alias imsr='docker start immich_server immich_machine_learning immich_postgres immich_redis 2>/dev/null || true'
-alias imst='docker stop immich_server immich_machine_learning immich_postgres immich_redis 2>/dev/null || true'
-
-# ---------- WinApps ----------
-alias wau='docker start winapps 2>/dev/null || true'
-alias wad='docker stop winapps 2>/dev/null || true'
-
 mount_aliyun() {
   local CONFIG_NAME="$1"
   local BUCKET="$2"
@@ -176,6 +169,9 @@ alias lh='ls -lh'
 alias li="gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
 alias dk="gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
 alias web='browser-sync start --server --files "**/*.*"'
+alias oc='opencode'
+alias cc='cc-switch'
+
 workMount() {
   local mounts=(
     "/mnt/devel-alist:cb@cb:/mnt/d/alist"
@@ -194,8 +190,8 @@ workMount() {
     fi
   done
 }
-alias scb='ssh -p 2222 cb@cb'
 alias sa='ssh -p 64701 maki@frp.makis-life.cn'
+alias sw='ssh -p 34643 cb@frp-leg.com'
 :q() { exit; }
 
 # WARN: 加载密钥
@@ -222,3 +218,5 @@ vmnet() {
 
 # opencode
 export PATH=/home/maki/.opencode/bin:$PATH
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
