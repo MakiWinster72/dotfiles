@@ -18,21 +18,21 @@ output "DP-1" {
     mode "1920x1080@75.340"
     scale 1
     transform "normal"
-    position x=-1920 y=0
+    position x=0 y=0
 }
 
 output "DP-2" {
     mode "1920x1080@75.340"
     scale 1
     transform "normal"
-    position x=-1920 y=0
+    position x=0 y=0
 }
 
 output "HDMI-A-1" {
-    mode "1920x1080@75.340"
+    mode "1920x1080@60.000"
     scale 1
     transform "normal"
-    position x=-1920 y=0
+    position x=0 y=0
 }
 
 gestures {
@@ -144,9 +144,7 @@ cursor {
     hide-after-inactive-ms 1000
 }
 
-spawn-at-startup "clash-verge"
 spawn-at-startup "fcitx5"
-spawn-at-startup "dms" "run"
 // spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "XDG_MENU_PREFIX=arch- kbuildsycoca6"
@@ -154,12 +152,9 @@ spawn-at-startup "XDG_MENU_PREFIX=arch- kbuildsycoca6"
 environment {
   _JAVA_AWT_WM_NONREPARENTING "1"
   XDG_CURRENT_DESKTOP "niri"
-  ALL_PROXY "http://127.0.0.1:7890"
   ELECTRON_OZONE_PLATFORM_HINT "auto"
   TERMINAL "kitty"
   EDITOR "nvim"
-  GTK_THEME "Adwaita:dark"
-  GTK_ICON_THEME "Papirus-Dark"
 }
 hotkey-overlay {
     skip-at-startup
@@ -229,7 +224,7 @@ window-rule {
     match app-id=r#"^gnome-calculator$"#
     match app-id=r#"^galculator$"#
     match app-id=r#"^blueman-manager$"#
-    match app-id=r#"^org\.gnome\.Nautilus$"#
+    // match app-id=r#"^org\.gnome\.Nautilus$"#
     match app-id=r#"^steam$"#
     match app-id=r#"^xdg-desktop-portal$"#
     open-floating true
@@ -246,6 +241,8 @@ window-rule {
     match is-active=false
     opacity 0.8
 }
+
+// NOTE: 非透明软件
 window-rule {
     match app-id="zen"
     match app-id="firefox"
@@ -260,15 +257,13 @@ window-rule {
     match app-id="obsidian" is-active=true
     opacity 1.0
 }
+
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match app-id="zoom"
     open-floating true
 }
-window-rule {
-    match app-id="firefox"
-    opacity 1.0
-}
+
 window-rule {
     // geometry-corner-radius 12
     clip-to-geometry true
@@ -282,55 +277,41 @@ window-rule {
 }
 
 binds {
-    // === 系统与概览 ===
-    // Mod+O { spawn "niri" "msg" "action" "toggle-overview"; }
-    Mod+O { spawn "obsidian"; }
-    Alt+0 { spawn "niri" "msg" "action" "toggle-overview"; }
-    Mod+Tab repeat=false { toggle-overview; }
-    // Mod+Shift+Slash { show-hotkey-overlay; }
-
-    // === 应用程序启动器 ===
+    // NOTE: 终端
+    Alt+Shift+q { spawn "kitty"; }
     Mod+T hotkey-overlay-title="打开终端" { spawn "kitty"; }
-    Mod+Return hotkey-overlay-title="打开终端" { spawn "wezterm"; }
-    Mod+Z { spawn "clash-verge"; }
-    Mod+Y { spawn "Telegram"; }
-    Alt+O hotkey-overlay-title="应用程序启动器" { spawn "wofi" "--show" "drun"; }
+    Mod+x { spawn "kitty"; }
+    Mod+m { spawn "kitty"; }
+
+    // NOTE: 软件
+    Mod+b { spawn "zen-browser"; }
+    Mod+z { spawn "clash-verge"; }
+    Mod+y { spawn "Telegram"; }
+    Mod+o { spawn "obsidian"; }
+
+
+    // Mod+o { spawn "niri" "msg" "action" "toggle-overview"; }
+    Mod+tab { spawn "niri" "msg" "action" "toggle-overview"; }
+    Mod+e repeat=false { toggle-overview; }
     Alt+Space hotkey-overlay-title="应用程序启动器" {
         spawn "dms" "ipc" "call" "spotlight" "toggle";
     }
     Mod+V hotkey-overlay-title="剪贴板管理器" {
         spawn "dms" "ipc" "call" "clipboard" "toggle";
     }
-    Mod+M hotkey-overlay-title="任务管理器" {
-        spawn "dms" "ipc" "call" "processlist" "toggle";
-    }
-    Mod+B { spawn "zen-browser"; }
-    // Mod+B {
-    //     spawn-sh "google-chrome-stable --ozone-platform=wayland --proxy-server=\"http://127.0.0.1:7897\"";
+    // Mod+M hotkey-overlay-title="任务管理器" {
+    //     spawn "dms" "ipc" "call" "processlist" "toggle";
     // }
-    Mod+E {
-        // spawn "nautilus";
-        spawn "dolphin";
-        // spawn "krusader";
+
+    Mod+Shift+c {
+      spawn-sh "~/projects/funnySH/ocr.sh"
     }
 
-    Alt+Shift+Equal {
-    spawn-sh "brightnessctl set +5%";
-    }
     Alt+Shift+2 {
     spawn-sh "brightnessctl set +5%";
     }
-    Alt+Shift+Minus {
-    spawn-sh "brightnessctl set 5%-";
-    }
     Alt+Shift+1 {
     spawn-sh "brightnessctl set 5%-";
-    }
-    Alt+Equal {
-    spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
-    }
-    Alt+Minus {
-    spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
     }
     Alt+2 {
     spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
@@ -345,22 +326,22 @@ binds {
     // Mod+Y hotkey-overlay-title="浏览壁纸" {
     //     spawn "dms" "ipc" "call" "dankdash" "wallpaper";
     // }
-    Mod+Shift+N hotkey-overlay-title="通知中心" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
+    // Mod+Shift+N hotkey-overlay-title="通知中心" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
     Mod+N hotkey-overlay-title="记事本" { spawn "dms" "ipc" "call" "notepad" "toggle"; }
 
     // === 安全 ===
     Mod+Alt+L hotkey-overlay-title="锁定屏幕" {
         spawn "dms" "ipc" "call" "lock" "lock";
     }
-    Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete hotkey-overlay-title="任务管理器" {
-        spawn "dms" "ipc" "call" "processlist" "toggle";
-    }
+    Alt+Shift+E { quit; }
+    // Ctrl+Alt+Delete hotkey-overlay-title="任务管理器" {
+    //     spawn "dms" "ipc" "call" "processlist" "toggle";
+    // }
 
-    Mod+Shift+C {
+    Alt+Shift+C {
         // spawn-sh "grim -g \"$(slurp $SLURP_ARGS)\" /tmp/tmp.png && tesseract /tmp/tmp.png - | wl-copy && rm /tmp/tmp.png";
         // spawn-sh "grim -g \"$(slurp $SLURP_ARGS)\" /tmp/tmp.png && tesseract /tmp/tmp.png - -l chi_sim+eng --oem 3 | wl-copy && rm /tmp/tmp.png"
-        spawn-sh "~/project/funnySH/ocr.sh"
+        spawn-sh "~/projects/funnySH/ocr.sh"
     }
 
 
@@ -373,19 +354,14 @@ binds {
     Mod+Shift+T { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
     // Mod+W { toggle-column-tabbed-display; }
-    Mod+Shift+W { toggle-column-tabbed-display; }
 
     // ======= 鼠标操作 =======
     MouseBack { toggle-overview; }
-    // MouseMiddle { center-column; }
-    // MouseForward { set-column-width "90%"; }
     MouseForward { spawn-sh "niri msg action set-column-width \"90%\" && niri msg action center-column"; }
-    // MouseBack { toggle-window-floating; }
-    Mod+MouseForward { close-window; }
 
     // === 焦点导航 ===
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
+    Mod+U     { focus-window-down; }
+    Mod+I     { focus-window-up; }
     Mod+H     { focus-column-left; }
     Mod+L     { focus-column-right; }
     Mod+A     { focus-column-left; }
@@ -394,6 +370,10 @@ binds {
     Mod+S     { focus-workspace-down; }
     Mod+Ctrl+A     { focus-monitor-left; }
     Mod+Ctrl+D     { focus-monitor-right; }
+    Ctrl+XF86AudioRaiseVolume { focus-column-left; }
+    Ctrl+XF86AudioLowerVolume { focus-column-right; }
+    Alt+XF86AudioRaiseVolume { focus-workspace-up; }
+    Alt+XF86AudioLowerVolume { focus-workspace-down; }
 
     // === 窗口移动 ===
     Mod+Shift+A     { move-column-left; }
@@ -438,8 +418,8 @@ binds {
     // === 工作区导航 ===
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
-    Mod+U              { focus-workspace-down; }
-    Mod+I              { focus-workspace-up; }
+    Mod+J              { focus-workspace-down; }
+    Mod+K              { focus-workspace-up; }
     Mod+Ctrl+Down { move-column-to-workspace-down; }
     Mod+Ctrl+Up   { move-column-to-workspace-up; }
 
@@ -466,8 +446,8 @@ binds {
     Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
 
     // === 编号工作区 ===
-    // Mod+1 { focus-workspace 1; }
-    // Mod+2 { focus-workspace 2; }
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
     // Mod+3 { focus-workspace 3; }
     // Mod+4 { focus-workspace 4; }
     // Mod+5 { focus-workspace 5; }
@@ -527,6 +507,12 @@ binds {
     }
     XF86AudioLowerVolume allow-when-locked=true {
         spawn "dms" "ipc" "call" "audio" "decrement" "3";
+    }
+    Mod+XF86AudioRaiseVolume allow-when-locked=true {
+       spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
+    }
+    Mod+XF86AudioLowerVolume allow-when-locked=true {
+       spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
     }
     XF86AudioMute allow-when-locked=true {
         spawn "dms" "ipc" "call" "audio" "mute";
