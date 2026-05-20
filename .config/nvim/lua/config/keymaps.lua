@@ -5,6 +5,7 @@
 -- ~/.config/nvim/lua/config/keymaps.lua
 
 -- vim.keymap.set("v", "<C-c>", '"+y')
+vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = false })
 
 -- tmux nvim
 local function smart_move(direction, tmux_cmd)
@@ -50,54 +51,3 @@ map("n", "<F10>", require("dap").step_into, opts)
 map("n", "<F11>", require("dap").step_out, opts)
 -- 单步跳过
 map("n", "<F12>", require("dap").step_over, opts)
--- Rust: <leader> r r
-vim.api.nvim_set_keymap("n", "<leader>rr", "", {
-  noremap = true,
-  callback = function()
-    vim.cmd("w") -- 保存当前文件
-    local file = vim.fn.expand("%:p")
-    local filename = vim.fn.expand("%:t:r")
-    vim.cmd("split | terminal rustc " .. file .. " -o " .. filename .. " && ./" .. filename)
-    vim.cmd("startinsert")
-  end,
-  silent = true,
-})
-
--- C: <leader> r c
-vim.api.nvim_set_keymap("n", "<leader>rc", "", {
-  noremap = true,
-  callback = function()
-    vim.cmd("w") -- 保存当前文件
-    local file = vim.fn.expand("%:p")
-    local filename = vim.fn.expand("%:t:r")
-    vim.cmd("split | terminal gcc " .. file .. " -o " .. filename .. " && ./" .. filename)
-    vim.cmd("startinsert")
-  end,
-  silent = true,
-})
-
--- Python: <leader> r p
-vim.api.nvim_set_keymap("n", "<leader>rp", "", {
-  noremap = true,
-  callback = function()
-    vim.cmd("w") -- 保存当前文件
-    local file = vim.fn.expand("%:p")
-    vim.cmd("split | terminal python3 " .. file)
-    vim.cmd("startinsert")
-  end,
-  silent = true,
-})
-
--- C++: <leader> r C
-vim.api.nvim_set_keymap("n", "<leader>rC", "", {
-  noremap = true,
-  callback = function()
-    vim.cmd("w") -- 保存当前文件
-    local file = vim.fn.expand("%:p")
-    local filename = vim.fn.expand("%:t:r")
-    -- 编译并运行 C++ 程序
-    vim.cmd("split | terminal g++ " .. file .. " -o " .. filename .. " && ./" .. filename)
-    vim.cmd("startinsert")
-  end,
-  silent = true,
-})
