@@ -1,14 +1,6 @@
+# ~/.cargo/config.toml
 [source.crates-io]
-registry = "https://github.com/rust-lang/crates.io-index"
+replace-with = "tuna"
 
-# 清华大学
 [source.tuna]
-registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"
-
-# 上海交通大学
-[source.sjtu]
-registry = "https://mirrors.sjtug.sjtu.edu.cn/git/crates.io-index"
-
-# rustcc社区
-[source.rustcc]
-registry = "git://crates.rustcc.cn/crates.io-index"
+registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
