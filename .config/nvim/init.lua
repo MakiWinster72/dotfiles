@@ -135,3 +135,5 @@ if vim.g.neovide then
     end,
   })
 end
+vim.cmd("set fileencodings=gbk,utf-8,latin1")
+vim.cmd("set encoding=utf-8")
