@@ -5,6 +5,28 @@ export EDITOR="${EDITOR:-nvim}"
 export VISUAL="$EDITOR"
 umask 022
 
+# NOTE: 环境变量
+
+export https_proxy="http://127.0.0.1:7890"
+export http_proxy="http://127.0.0.1:7890"
+export all_proxy="http://127.0.0.1:7890"
+
+# NOTE: 自定义命令
+alias bilidown='cd ~/.local/share/bilidown && ./bilidown'
+alias ni='niri-session'
+alias ipa='ip addr show | grep -E "192|172"'
+alias lh='ls -lh'
+alias li="gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
+alias dk="gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
+alias web='browser-sync start --server --files "**/*.*"'
+alias oc='opencode'
+alias cc='cc-switch'
+
+# 挂载命令
+alias makislife='mount_aliyun "Aliyun" "makislife" "makislife"'
+alias img_makislife='mount_aliyun "Aliyun" "aly-images472" "img-makislife"'
+alias resources='mount_aliyun "Aliyun" "res-guangzhou" "resources"'
+
 # 仅在存在 oh-my-zsh 时启用
 if [ -d "$ZSH" ]; then
 ZSH_THEME="juanghurtado"
@@ -53,7 +75,7 @@ fi
 # 自动建议与语法高亮
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="${ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE:-fg=8}"
 
-# 外观 / ls 显示增强
+# NOTE: 外观 / ls 显示增强
 if command -v lsd >/dev/null 2>&1; then
   alias ls='lsd --group-dirs=first --icon=always'
   alias ll='lsd -lh --group-dirs=first --icon=always'
@@ -67,7 +89,7 @@ else
   alias la='ls -lha --group-directories-first 2>/dev/null || ls -lha'
 fi
 
-# FZF
+# NOTE: FZF
 if [ -f "${HOME}/.fzf.zsh" ]; then
   source "${HOME}/.fzf.zsh"
 fi
@@ -76,10 +98,7 @@ if command -v grep >/dev/null 2>&1; then
   alias grep='grep --color=auto'
 fi
 
-# 数据库
-alias dbsr='sudo systemctl start mariadb'
-alias dbst='sudo systemctl stop mariadb'
-
+# NOTE: DOCKER
 dksr() {
   if ! command -v docker >/dev/null 2>&1; then
     echo "Docker 未安装"
@@ -113,6 +132,7 @@ dkst() {
   fi
 }
 
+# NOTE: clone
 mount_aliyun() {
   local CONFIG_NAME="$1"
   local BUCKET="$2"
@@ -156,42 +176,7 @@ mount_aliyun() {
   cd "$MOUNT_POINT" 2>/dev/null || true
 }
 
-# 挂载命令
-alias makislife='mount_aliyun "Aliyun" "makislife" "makislife"'
-alias img_makislife='mount_aliyun "Aliyun" "aly-images472" "img-makislife"'
-alias resources='mount_aliyun "Aliyun" "res-guangzhou" "resources"'
-
-# NOTE: 自定义命令
-alias bilidown='cd ~/.local/share/bilidown && ./bilidown'
-alias ni='niri-session'
-alias ipa='ip addr show | grep -E "192|172"'
-alias lh='ls -lh'
-alias li="gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'"
-alias dk="gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
-alias web='browser-sync start --server --files "**/*.*"'
-alias oc='opencode'
-alias cc='cc-switch'
-
-workMount() {
-  local mounts=(
-    "/mnt/devel-alist:cb@cb:/mnt/d/alist"
-    "/mnt/wsl:cb@cb:/home/cb"
-    "/mnt/devel:cb@cb:/mnt/c/Users/devel"
-  )
-
-  for entry in $mounts; do
-    local mount_point="${entry%%:*}"
-    local remote="${entry#*:}"
-    if mountpoint -q "$mount_point"; then
-      echo "$mount_point 已挂载"
-    else
-      echo "挂载 $remote -> $mount_point ..."
-      sshfs -p 2222 "$remote" "$mount_point"
-    fi
-  done
-}
 alias sa='ssh -p 64701 maki@frp.makis-life.cn'
-alias sw='ssh -p 34643 cb@frp-leg.com'
 :q() { exit; }
 
 # WARN: 加载密钥
@@ -210,13 +195,7 @@ chpwd() {
   ls
 }
 
-# VMWare
-vmnet() {
-  sudo modprobe vmnet
-  sudo vmware-networks --start
-}
-
-# opencode
+# NOTE: opencode
 export PATH=/home/maki/.opencode/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
