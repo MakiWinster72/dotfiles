@@ -35,7 +35,6 @@ ZSH_THEME="juanghurtado"
     zsh-autosuggestions
     zsh-syntax-highlighting
     fzf
-    kimi-cli
   )
   source "$ZSH/oh-my-zsh.sh"
 fi
