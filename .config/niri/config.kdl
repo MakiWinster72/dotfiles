@@ -279,21 +279,20 @@ window-rule {
 
 binds {
     // NOTE: 终端
-    Alt+Shift+q { spawn "kitty"; }
-    Mod+T hotkey-overlay-title="打开终端" { spawn "kitty"; }
-    Mod+x { spawn "kitty"; }
-    Mod+m { spawn "kitty"; }
+    Mod+t repeat=false hotkey-overlay-title="打开终端" { spawn "kitty"; }
+    Mod+x repeat=false { spawn "kitty"; }
+    Mod+m repeat=false { spawn "kitty"; }
 
     // NOTE: 软件
-    Mod+b { spawn "zen-browser"; }
-    Mod+z { spawn "clash-verge"; }
-    Mod+y { spawn "Telegram"; }
-    Mod+o { spawn "obsidian"; }
+    Mod+b repeat=false { spawn "zen-browser"; }
+    Mod+z repeat=false { spawn "clash-verge"; }
+    Mod+y repeat=false { spawn "Telegram"; }
+    Mod+o repeat=false { spawn "obsidian"; }
 
 
     // Mod+o { spawn "niri" "msg" "action" "toggle-overview"; }
-    Mod+tab { spawn "niri" "msg" "action" "toggle-overview"; }
-    Mod+e repeat=false { toggle-overview; }
+    Mod+tab repeat=false { spawn "niri" "msg" "action" "toggle-overview"; }
+    Mod+e repeat=false { spawn "dolphin"; }
     Alt+Space hotkey-overlay-title="应用程序启动器" {
         spawn "dms" "ipc" "call" "spotlight" "toggle";
     }
