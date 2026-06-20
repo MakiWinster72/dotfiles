@@ -21,6 +21,8 @@ alias dk="gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
 alias web='browser-sync start --server --files "**/*.*"'
 alias oc='opencode'
 alias cc='cc-switch'
+alias cl='claude --resume'
+alias ncim='nvim'
 
 # 挂载命令
 alias makislife='mount_aliyun "Aliyun" "makislife" "makislife"'
