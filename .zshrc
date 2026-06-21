@@ -23,6 +23,8 @@ alias oc='opencode'
 alias cc='cc-switch'
 alias cl='claude --resume'
 alias ncim='nvim'
+alias e='exit'
+alias nz='nvim .zshrc'
 
 # 挂载命令
 alias makislife='mount_aliyun "Aliyun" "makislife" "makislife"'

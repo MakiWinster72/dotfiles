@@ -1,7 +1,7 @@
 {
-  "currentThemeName": "cyan",
-  "currentThemeCategory": "generic",
-  "customThemeFile": "",
+  "currentThemeName": "custom",
+  "currentThemeCategory": "registry",
+  "customThemeFile": "/home/maki/.config/DankMaterialShell/themes/catppuccin/theme.json",
   "registryThemeVariants": {},
   "matugenScheme": "scheme-tonal-spot",
   "runUserMatugenTemplates": true,
@@ -36,9 +36,15 @@
   "modalAnimationSpeed": 1,
   "modalCustomAnimationDuration": 150,
   "enableRippleEffects": true,
+  "blurEnabled": true,
+  "blurForegroundLayers": true,
+  "blurLayerOutlineOpacity": 0.12,
+  "blurBorderColor": "outline",
+  "blurBorderCustomColor": "#ffffff",
+  "blurBorderOpacity": 0.35,
   "wallpaperFillMode": "Fill",
   "blurredWallpaperLayer": false,
-  "blurWallpaperOnOverview": true,
+  "blurWallpaperOnOverview": false,
   "showLauncherButton": true,
   "showWorkspaceSwitcher": true,
   "showFocusedWindow": true,
@@ -52,6 +58,9 @@
   "selectedGpuIndex": 0,
   "enabledGpuPciIds": [],
   "showSystemTray": true,
+  "systemTrayIconTintMode": "none",
+  "systemTrayIconTintSaturation": 50,
+  "systemTrayIconTintStrength": 135,
   "showClock": true,
   "showNotificationButton": true,
   "showBattery": true,
@@ -192,12 +201,6 @@
   "greeterEnableFprint": false,
   "greeterEnableU2f": false,
   "greeterWallpaperPath": "",
-  "greeterUse24HourClock": true,
-  "greeterShowSeconds": false,
-  "greeterPadHours12Hour": false,
-  "greeterLockDateFormat": "",
-  "greeterFontFamily": "",
-  "greeterWallpaperFillMode": "",
   "mediaSize": 1,
   "appLauncherViewMode": "list",
   "spotlightModalViewMode": "list",
@@ -260,12 +263,12 @@
   "soundVolumeChanged": true,
   "soundPluggedIn": true,
   "acMonitorTimeout": 3600,
-  "acLockTimeout": 1800,
+  "acLockTimeout": 3600,
   "acSuspendTimeout": 7200,
   "acSuspendBehavior": 0,
   "acProfileName": "",
   "batteryMonitorTimeout": 1800,
-  "batteryLockTimeout": 600,
+  "batteryLockTimeout": 1800,
   "batterySuspendTimeout": 3600,
   "batterySuspendBehavior": 0,
   "batteryProfileName": "",
@@ -286,6 +289,10 @@
   "qtThemingEnabled": false,
   "syncModeWithPortal": true,
   "terminalsAlwaysDark": false,
+  "muxType": "tmux",
+  "muxUseCustomCommand": false,
+  "muxCustomCommand": "",
+  "muxSessionFilter": "",
   "runDmsMatugenTemplates": true,
   "matugenTemplateGtk": true,
   "matugenTemplateNiri": true,
@@ -448,7 +455,7 @@
       "rightWidgets": [
         {
           "id": "runningApps",
-          "enabled": true
+          "enabled": false
         },
         {
           "id": "cpuUsage",
@@ -469,7 +476,7 @@
       ],
       "spacing": 4,
       "innerPadding": 11,
-      "bottomGap": -7,
+      "bottomGap": -50,
       "transparency": 0,
       "widgetTransparency": 0.5,
       "squareCorners": false,
@@ -506,6 +513,67 @@
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
       "removeWidgetPadding": true
+    },
+    {
+      "id": "bar1778119543958",
+      "name": "Bar 2",
+      "enabled": true,
+      "position": 1,
+      "screenPreferences": [
+        "all"
+      ],
+      "showOnLastDisplay": false,
+      "leftWidgets": [],
+      "centerWidgets": [],
+      "rightWidgets": [
+        {
+          "id": "runningApps",
+          "enabled": true,
+          "runningAppsCompactMode": true,
+          "runningAppsGroupByApp": false,
+          "runningAppsCurrentWorkspace": false,
+          "runningAppsCurrentMonitor": false
+        }
+      ],
+      "spacing": 5,
+      "innerPadding": 11,
+      "bottomGap": -41,
+      "transparency": 0,
+      "widgetTransparency": 0.5,
+      "squareCorners": false,
+      "noBackground": true,
+      "gothCornersEnabled": false,
+      "gothCornerRadiusOverride": false,
+      "gothCornerRadiusValue": 12,
+      "borderEnabled": false,
+      "borderColor": "surfaceText",
+      "borderOpacity": 1,
+      "borderThickness": 1,
+      "widgetOutlineEnabled": false,
+      "widgetOutlineColor": "surfaceText",
+      "widgetOutlineOpacity": 1,
+      "widgetOutlineThickness": 1,
+      "widgetPadding": 4,
+      "maximizeWidgetIcons": false,
+      "maximizeWidgetText": false,
+      "removeWidgetPadding": true,
+      "fontScale": 1.09,
+      "iconScale": 2,
+      "autoHide": false,
+      "autoHideDelay": 250,
+      "showOnWindowsOpen": false,
+      "openOnOverview": true,
+      "visible": true,
+      "popupGapsAuto": true,
+      "popupGapsManual": 4,
+      "maximizeDetection": true,
+      "scrollEnabled": true,
+      "scrollXBehavior": "column",
+      "scrollYBehavior": "workspace",
+      "shadowIntensity": 0,
+      "shadowOpacity": 59,
+      "shadowColorMode": "text",
+      "shadowCustomColor": "#000000"
     }
   ],
   "desktopClockEnabled": false,
@@ -600,32 +668,38 @@
         "eDP-1": {
           "width": 225.640625,
           "height": 225.640625,
-          "x": 1643.76171875,
-          "y": 830.9921875
+          "x": 1630.03515625,
+          "y": 782.5390625
         },
         "DP-1": {
-          "width": 157.3671875,
-          "height": 157.3671875,
-          "x": 1704.72265625,
-          "y": 895.578125
+          "width": 339.4921875,
+          "height": 158.44921875,
+          "x": 1494.58203125,
+          "y": 848.453125
         },
         "HDMI-A-1": {
-          "width": 280,
-          "height": 160,
-          "x": 1583.37109375,
-          "y": 883.2734375
+          "width": 210.4296875,
+          "height": 200.65625,
+          "x": 1669.02734375,
+          "y": 804.61328125
         },
         "DP-2": {
-          "width": 175.2421875,
-          "height": 156.21484375,
-          "x": 1692.95703125,
-          "y": 893.9140625
+          "width": 379.61328125,
+          "height": 226.1953125,
+          "x": 1484.8984375,
+          "y": 802.73828125
         },
         "winit": {
           "width": 160,
           "height": 70,
           "x": 391,
           "y": 440
+        },
+        "": {
+          "width": 100,
+          "height": 45,
+          "x": 0,
+          "y": 0
         }
       }
     },
