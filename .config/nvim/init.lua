@@ -3,7 +3,7 @@ require("config.lazy")
 require("plugins.tmux")
 
 -- 通用 GUI 字体（字体 (guifont)）
-vim.o.guifont = "Recursive Mono Casual Static:h18"
+vim.o.guifont = "CaskaydiaCove Nerd Font Mono:h16"
 
 -- SSH 下使用 OSC52 剪贴板（仅在 SSH 会话时启用）
 if vim.env.SSH_TTY then
